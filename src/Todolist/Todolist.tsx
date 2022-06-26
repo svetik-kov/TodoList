@@ -1,5 +1,6 @@
 import React, {ChangeEvent,KeyboardEvent, useState} from 'react';
 import {FilterValueType} from "../App";
+import {Button} from "../Button/Button";
 
 type TodolistPropsType = {
     title: string
@@ -38,14 +39,17 @@ const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
             <h3>{props.title}</h3>
             <div>
                 <input value={newTitle} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
-                <button onClick={addTasksHandler}>+</button>
+               {/* <button onClick={addTasksHandler}>+</button>*/}
+                <Button name={'+'} callBack={addTasksHandler}/>
+
             </div>
             <ul>
                 {props.tasks.map((el) => {
 
                     return (
                         <li key={el.id}>
-                            <button onClick={()=>removeTasksHandler(el.id)}>X</button>
+                          {/*  <button onClick={()=>removeTasksHandler(el.id)}>X</button>*/}
+                            <Button name={'X'} callBack={()=>removeTasksHandler(el.id)}/>
                             <input type='checkbox' checked={el.isDone}/>
                             <span>{el.title}</span>
                         </li>
@@ -53,9 +57,12 @@ const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
                 })}
             </ul>
             <div>
-                <button onClick={()=>tsarChangeFilter('all')}>All</button>
+              {/*  <button onClick={()=>tsarChangeFilter('all')}>All</button>
                 <button onClick={()=>tsarChangeFilter('active')}>Active</button>
-                <button onClick={()=>tsarChangeFilter('completed')}>Completed</button>
+                <button onClick={()=>tsarChangeFilter('completed')}>Completed</button>*/}
+                <Button name={'All'} callBack={()=>tsarChangeFilter('all')}/>
+                <Button name={'Active'} callBack={()=>tsarChangeFilter('active')}/>
+                <Button name={'Completed'} callBack={()=>tsarChangeFilter('completed')}/>
             </div>
 
         </div>
