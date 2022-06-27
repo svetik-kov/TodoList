@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
 import s from './Todolist.module.css'
+import {CheckBox} from "./components/CheckBox";
 
 type TaskType = {
     id: string
@@ -63,7 +64,8 @@ const [error,setError]=useState<string|null>(null)
                    /* const onClickHandler = () => props.removeTask(t.id)*/
 
                     return <li key={t.id} className={t.isDone?s.isDone:''}>
-                        <input type="checkbox" checked={t.isDone} onChange={(event)=>chengeCheckboxHandler(t.id,event.currentTarget.checked)}/>
+                        <CheckBox checked={t.isDone} callback={(eventValue)=>chengeCheckboxHandler(t.id,eventValue)}/>
+                       {/* <input type="checkbox" checked={t.isDone} onChange={(event)=>chengeCheckboxHandler(t.id,event.currentTarget.checked)}/>*/}
                         <span>{t.title}</span>
                         <button onClick={ ()=>onClickHandler(t.id) }>x</button>
                     </li>
