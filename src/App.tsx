@@ -35,10 +35,12 @@ function App() {
             {id: v1(), title: "React Book", isDone: true}
         ]
     });
-const addTodolist=( todolistId:string,tasksID:string, newtitle:string)=>{
+const addTasks=( todolistId:string,tasksID:string, newtitle:string)=>{
     setTasks({...tasks,[todolistId]:tasks[todolistId].map((el)=>el.id===tasksID?{...el,title:newtitle}:el)})
 }
-
+const editTodolist=(todolistId:string, newtitle:string)=>{
+    setTodolists(todolists.map((el)=>el.id===todolistId?{...el,title:newtitle}:el))
+}
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];
@@ -120,7 +122,8 @@ const addTodolist=( todolistId:string,tasksID:string, newtitle:string)=>{
                         changeTaskStatus={changeStatus}
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
-                        addTodolist={addTodolist}
+                        addTasks={addTasks}
+                        editTodolist={editTodolist}
                     />
                 })
             }
