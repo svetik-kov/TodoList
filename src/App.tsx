@@ -35,7 +35,9 @@ function App() {
             {id: v1(), title: "React Book", isDone: true}
         ]
     });
-
+const addTodolist=( todolistId:string,tasksID:string, newtitle:string)=>{
+    setTasks({...tasks,[todolistId]:tasks[todolistId].map((el)=>el.id===tasksID?{...el,title:newtitle}:el)})
+}
 
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
@@ -118,6 +120,7 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
+                        addTodolist={addTodolist}
                     />
                 })
             }
