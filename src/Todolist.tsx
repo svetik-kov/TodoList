@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterValuesType} from './App';
-import {InputButton} from "./components/Input";
-import {EdiTableSpan} from "./components/EdiTableSpan";
+import {Input} from "./components/Input";
 
 export type TaskType = {
     id: string
@@ -19,13 +18,8 @@ type PropsType = {
     changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
     removeTodolist: (id: string) => void
     filter: FilterValuesType
-    editTasks:(todolistID:string,tasksID:string,newTitle:string)=>void
-    ediTodolist:(todolistID:string,newTitle:string)=>void
 }
 
-function Input(props: { callback: () => void }) {
-    return null;
-}
 export function Todolist(props: PropsType) {
     /*let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
@@ -50,26 +44,21 @@ export function Todolist(props: PropsType) {
             addTask();
         }
     }*/
+
     const removeTodolist = () => props.removeTodolist(props.id)
+
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
     const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
-    const addTasksHandler=(newTitle:string)=>{
-        props.addTask(newTitle,props.id)
-    }
-    const editTasksHandler=(tasksID:string,newTitle:string)=>{
-        props.editTasks(props.id,tasksID,newTitle)
-    }
-    const ediTodolistHandler = (newTitle:string) => {
-props.ediTodolist(props.id,newTitle)
-    }
+const addTasksInput=(newTitle:string)=>{
+    props.addTask(newTitle,props.id)
+}
     return <div>
-        <h3>{/* {props.title}*!/*/}
-            <EdiTableSpan title={props.title} callBack={ediTodolistHandler}/>
+        <h3> {props.title}
             <button onClick={removeTodolist}>x</button>
         </h3>
-        <InputButton callback={addTasksHandler}/>
-       {/* <div>
+        <Input callBack={addTasksInput}/>
+        {/*<div>
             <input value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
@@ -89,8 +78,7 @@ props.ediTodolist(props.id,newTitle)
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>
-                      <EdiTableSpan title={t.title} callBack={(newTitle)=>editTasksHandler(t.id,newTitle)}/>
-                       {/* <span>{t.title}</span>*/}
+                        <span>{t.title}</span>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })

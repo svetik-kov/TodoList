@@ -1,15 +1,15 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 type InputPropsType={
-    callback:(newTitle:string)=>void
+    callBack:(newTitle:string)=>void
 }
-export const InputButton = (props:InputPropsType) => {
+export const Input = (props:InputPropsType) => {
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
     const addTask = () => {
         let newTitle = title.trim();
         if (newTitle !== "") {
-            props.callback(newTitle);
+            props.callBack(newTitle/*, props.id*/);
             setTitle("");
         } else {
             setError("Title is required");
@@ -26,7 +26,6 @@ export const InputButton = (props:InputPropsType) => {
             addTask();
         }
     }
-
     return (
         <div>
             <input value={title}

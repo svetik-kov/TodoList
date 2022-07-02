@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
-import {InputButton} from "./components/Input";
+import {Input} from "./components/Input";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -32,16 +32,11 @@ function App() {
         ],
         [todolistId2]: [
             {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "React Book", isDone: false}
+            {id: v1(), title: "React Book", isDone: true}
         ]
     });
-    const ediTodolist = (todolistID:string,newTitle:string) => {
-        setTodolists(todolists.map((el)=>el.id===todolistID?{...el,title:newTitle}:el))
-    }
-    const editTasks=(todolistID:string,tasksID:string,newTitle:string)=>{
-        setTasks({...tasks,[todolistID]:tasks[todolistID].map(el=>el.id===tasksID?{...el,title:newTitle}:el)})
-        console.log(newTitle)
-    }
+
+
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];
@@ -78,6 +73,7 @@ function App() {
             setTodolists([...todolists])
         }
     }
+
     function removeTodolist(id: string) {
         // засунем в стейт список тудулистов, id которых не равны тому, который нужно выкинуть
         setTodolists(todolists.filter(tl => tl.id != id));
@@ -86,20 +82,19 @@ function App() {
         // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
         setTasks({...tasks});
     }
-
-    const addTodolistHandler=(title:string)=>{
-       const newTodolistID=v1()
-     const   newTodo:TodolistType={id: newTodolistID, title: title, filter: "all"}
-        setTodolists([newTodo,...todolists])
-        setTasks({...tasks,[newTodolistID]:[
-                {id: v1(), title: "HTML", isDone: true},
-                {id: v1(), title: "JS222", isDone: true}
+    const addTodolistHandler=(newTitle:string)=>{
+        let newTodo=v1()
+        let newTodolist:TodolistType={id: newTodo, title: newTitle, filter: "all"}
+        setTodolists([newTodolist,...todolists])
+        setTasks({...tasks,[newTodo]:[
+                {id: v1(), title: "Milk", isDone: true},
+                {id: v1(), title: "React Book", isDone:false}
             ]})
-    }
 
+    }
     return (
         <div className="App">
-            <InputButton callback={addTodolistHandler}/>
+            <Input callBack={addTodolistHandler}/>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
@@ -123,9 +118,6 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
-                        editTasks={editTasks}
-                        ediTodolist={ediTodolist}
-
                     />
                 })
             }
