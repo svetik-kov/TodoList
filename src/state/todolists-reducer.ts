@@ -6,7 +6,7 @@ type TodolistReducerType=removeTodolistACType
     |changeTodolistTitleAC
     |changeFilterACType;
 type removeTodolistACType=ReturnType<typeof removeTodolistAC>
-type addTodolistACType=ReturnType<typeof addTodolistAC>
+export type addTodolistACType=ReturnType<typeof addTodolistAC>
 type changeTodolistTitleAC=ReturnType<typeof changeTodolistTitleAC>
 type changeFilterACType=ReturnType<typeof changeFilterAC>
 
